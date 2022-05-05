@@ -1,0 +1,297 @@
+import java.awt.FlowLayout; 
+import java.awt.Frame; 
+import java.awt.TextField; 
+
+ 
+import javax.swing.JFrame;
+
+public class AssignmentThreadSyncCustomException {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		SbiBankAccount sbiba = new SbiBankAccount(1001, "Saaniya Mirza", 100000);
+		System.out.println("sbiba"+sbiba);
+			
+		
+				
+		BankTeller t1 = new BankTeller("Teller at 1st Counter: ",sbiba,5000,50000); //3
+		BankTeller t2 = new BankTeller("\tTeller at 2nd Counter: ",sbiba,7000,15000); //3
+		BankTeller t3 = new BankTeller("\t\tTeller at 3rd Counter: ",sbiba,8000,25000); //3
+		
+		t1.start();
+		t2.start();
+		t3.start();
+		
+		try {
+			t1.join(); //wait for t1 to die
+			t2.join(); //wait for t1 to die
+			t3.join(); //wait for t1 to die
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("Updated Passbook : "+sbiba);
+		System.out.println("**********************************************************************************************************");
+		
+		/*MySavingAccount msa = new MySavingAccount("SBI Saving Account"); 
+		//MyCurrentAccount mca = new MyCurrentAccount("SBI Current Account"); 
+		//MyFixedDeposit mfd = new MyFixedDeposit("SBI Fixed Deposit"); 
+		//MyCashCredit mcc = new MyCashCredit("SBI Cash Credit Account"); 
+			 
+		msa.setVisible(true); 
+		mca.setVisible(true); 
+		mfd.setVisible(true); 
+		mcc.setVisible(true); 
+			 
+		Thread th1 = new Thread(msa); 
+		Thread th2 = new Thread(mca); 
+		Thread th3 = new Thread(mfd); 
+		Thread th4 = new Thread(mcc); 
+		 
+		th1.start(); 
+		th2.start(); 
+		th3.start(); 
+		th4.start(); */
+		
+		}
+	
+}
+class BankTeller extends Thread //1
+{
+	String bankTellerName;
+	SbiBankAccount ref;
+	double amountToDeposit;
+	double amountToWithdraw;
+	
+	BankTeller(String name, SbiBankAccount x, double amt, double amtw) {
+		bankTellerName= name;
+		ref= x;
+		amountToDeposit=amt;
+		amountToWithdraw=amtw;
+	}
+/*	void depositCash() {
+		//System.out.println(BankTellerName+" depositing cash "+amountToDeposit);
+		ref.deposit(amountToDeposit, bankTellerName);
+	}
+	public void runDeposit() { //2
+		depositCash();
+	}
+*/	
+	void withdrawCash() {
+		ref.withdraw(amountToWithdraw, bankTellerName);
+	//	if(amtw < amt )
+		//	throw InsufficientBalanceException
+	}
+	public void run() { //2
+		withdrawCash();
+	}
+}
+class SbiBankAccount 
+{
+	private int accountNumber;
+	private String accountHolderName;
+	private double accountBalance;
+	
+	public SbiBankAccount(int accountNumber, String accountHolderName, double accountBalance)
+	{
+		super();
+		this.accountNumber = accountNumber;
+		this.accountHolderName = accountHolderName;
+		this.accountBalance = accountBalance;
+	}
+	
+	@Override
+	public String toString() {
+		return "SbiBankAccount [A/c Number= " + accountNumber + ", A/c Holder Name= " + accountHolderName
+				+ ", A/c Balance= " + accountBalance + "]";
+	}
+
+	public String getAccountHolderName() {
+		return accountHolderName;
+	}
+	public void setAccountHolderName(String accountHolderName) {
+		this.accountHolderName = accountHolderName;
+	}
+	public double getAccountBalance(String tn) {
+		System.out.println(tn+" getting the balance....");
+		return accountBalance;
+	}
+	public void setAccountBalance(double accountBalance,String tn) {
+		System.out.println(tn+" setting the balance....");
+		this.accountBalance = accountBalance;
+	}
+
+	public int getAccountNumber() {
+		return accountNumber;
+	}
+	
+	//allows only one thread to enter inside this method and other nested calls
+/*	public synchronized  void deposit(double amountToDeposit, String tn) {
+		System.out.println(tn+" Deposit(double) started.....");
+		double currentBalance = getAccountBalance(tn);
+		System.out.println(tn+" Balance got : "+currentBalance);
+		System.out.println(tn+" calculating new balance .....");
+		double newBalance = currentBalance + amountToDeposit;
+		setAccountBalance(newBalance,tn);
+		System.out.println(tn+" Deposit(double) finished.....");
+		System.out.println("---------------------");
+	}*/
+
+	
+	public synchronized  void withdraw (double amountToWithdraw, String tn) {
+		System.out.println(tn+" Withdraw(double) started.....");
+		double currentBalance = getAccountBalance(tn);
+		System.out.println(tn+" Balance got : "+currentBalance);
+		System.out.println(tn+" calculating new balance .....");
+		double newBalance = currentBalance - amountToWithdraw;
+		setAccountBalance(newBalance,tn);
+		System.out.println(tn+" Withdrawal(double) finished.....");
+		System.out.println("=================================Txn Complete===================================");
+	}
+}
+
+
+//class SbiCurrentAccount extends SbiBankAccount {
+	
+//}
+
+/*class AccountCategory {
+
+	public synchronized  void AccountCatgry(double amountToWithdraw, String tn) {
+		// TODO Auto-generated method stub
+		MySavingAccount msa = new MySavingAccount("SBI Saving Account"); 
+		MyCurrentAccount mca = new MyCurrentAccount("SBI Current Account"); 
+		MyFixedDeposit mfd = new MyFixedDeposit("SBI Fixed Deposit"); 
+		MyCashCredit mcc = new MyCashCredit("SBI Cash Credit Account"); 
+			 
+		msa.setVisible(true); 
+		mca.setVisible(true); 
+		mfd.setVisible(true); 
+		mcc.setVisible(true); 
+			 
+		Thread t1 = new Thread(msa); 
+		Thread t2 = new Thread(mca); 
+		Thread t3 = new Thread(mfd); 
+		Thread t4 = new Thread(mcc); 
+		 
+		t1.start(); 
+		t2.start(); 
+		t3.start(); 
+		t4.start(); 
+		
+		}
+
+}
+
+
+// frame---------------------------------------------------------
+
+class MySavingAccount extends JFrame implements Runnable //1 
+{ 
+	TextField t = new TextField(30); 
+	MySavingAccount(String title) { 
+		super(title); 
+		setSize(400,100); 
+		setLocation(930,100); 
+		setLayout(new FlowLayout()); 
+		add(t); 
+		setVisible(true); 
+		setDefaultCloseOperation(EXIT_ON_CLOSE); 
+	} 
+	public void run() { //2 
+		for (int i = 1; i <= 50; i++) { 
+			t.setText(""+i); 
+			try { 
+				Thread.sleep(15); 
+			} catch (InterruptedException e) { 
+				// TODO Auto-generated catch block 
+				e.printStackTrace(); 
+			} 
+		} 
+	} 
+	 
+} 
+
+
+class MyCurrentAccount extends JFrame implements Runnable //1 
+	{ 
+		TextField t = new TextField(30); 
+		MyCurrentAccount(String title) { 
+			super(title); 
+ 		setSize(400,100); 
+ 		setLocation(930,200); 
+ 		setLayout(new FlowLayout()); 
+ 		add(t); 
+ 		setVisible(true); 
+ 		setDefaultCloseOperation(EXIT_ON_CLOSE); 
+ 	} 
+ 	public void run() { //2 
+ 		for (int i = 1; i <= 200; i++) { 
+ 			t.setText(""+i); 
+ 			try { 
+ 				Thread.sleep(15); 
+ 			} catch (InterruptedException e) { 
+ 				// TODO Auto-generated catch block 
+ 				e.printStackTrace(); 
+ 			} 
+ 		} 
+ 	} 
+ 	 
+ } 
+ 
+
+class MyFixedDeposit extends JFrame implements Runnable //1 
+ { 
+ 	TextField t = new TextField(30); 
+ 	MyFixedDeposit(String title) { 
+ 		super(title); 
+ 		setSize(400,100); 
+ 		setLocation(930,300); 
+ 		setLayout(new FlowLayout()); 
+ 		add(t); 
+ 		setVisible(true); 
+ 		setDefaultCloseOperation(EXIT_ON_CLOSE); 
+ 	} 
+ 	public void run() { //3 
+ 		for (int i = 1; i <= 500; i++) { 
+ 			t.setText(""+i); 
+ 			try { 
+ 				Thread.sleep(15); 
+ 			} catch (InterruptedException e) { 
+ 				// TODO Auto-generated catch block 
+ 				e.printStackTrace(); 
+ 			} 
+ 		} 
+ 	} 
+ 	 
+ } 
+ 
+
+class MyCashCredit extends JFrame implements Runnable //1 
+ { 
+ 	TextField t = new TextField(30); 
+ 	MyCashCredit(String title) { 
+ 		super(title); 
+ 		setSize(400,100); 
+ 		setLocation(930,400); 
+ 		setLayout(new FlowLayout()); 
+ 		add(t); 
+ 		setVisible(true); 
+ 		setDefaultCloseOperation(EXIT_ON_CLOSE); 
+ 	} 
+ 	public void run() { //2 
+ 		for (int i = 1; i <= 1200; i++) { 
+ 			t.setText(""+i); 
+ 			try { 
+ 				Thread.sleep(15); 
+ 			} catch (InterruptedException e) { 
+ 				// TODO Auto-generated catch block 
+ 				e.printStackTrace(); 
+ 			} 
+ 		} 
+ 	} 
+ 	 
+ } */
+ 
