@@ -1,0 +1,88 @@
+class KFCCounter 
+	 { 
+	 	String Burger; 
+	 	String TableNo; 
+	 	double BillAmount; 
+	 	boolean bookingStatus; 
+	 	 
+	 	static int OrderCount;//class's data-it's never as object's data 
+	 
+	 
+	 	public KFCCounter(String Burger, String TableNo, double BillAmount, boolean status) { 
+	 		super(); 
+	 		System.out.println("KFCCounter order accepting...."); 
+	 		this.Burger = Burger; 
+	 		this.TableNo = TableNo; 
+	 		this.BillAmount = BillAmount;
+	 		bookingStatus = status; 
+	 		++OrderCount; 
+	 	} 
+	 
+	 
+	 	@Override 
+	 	public String toString() { 
+	 		return "KFCCounter [Burger=" + Burger + ", TableNo=" + TableNo+ ", BillAmount=" + BillAmount + "]"; 
+	 	} 
+	 	 
+	 	void eat() { 
+	 		
+	 		System.out.println(Burger + " is ordered by Customers of "+ TableNo+ "  Bill Amount is "+ BillAmount + " Order Delivery Status "+bookingStatus); 
+	 	} 
+	 	 
+	 	void kiteFight(KFCCounter ref) { 
+	 		 
+	 		for(int i=1;i<=10;i++) { 
+	 			double val = Math.random()%100; 
+	 			System.out.println("KFCCounter waiting started for "+TableNo+" and "+ref.TableNo+" "+val); 
+	 			if(val >0.98) { 
+	 				ref.bookingStatus=false; 
+	 				OrderCount--; 
+	 				break; 
+	 			} 
+	 			else  if(val <0.10) { 
+	 				bookingStatus=false; 
+	 				OrderCount--; 
+	 				break; 
+	 			} 
+	 			else  if(val >=0.60 && val <0.70) { 
+	 				bookingStatus=false; 
+	 				ref.bookingStatus=false; 
+	 				OrderCount = OrderCount-2; 
+	 				break; 
+	 			} 
+	 		} 
+	 	} 
+	 	
+	 } 
+	 
+	 
+	 public class StaticTest 
+	 { 
+	 	public static void main(String[] args) 
+	 	{ 
+	 		 
+	 		System.out.println("order count is "+KFCCounter.OrderCount); 
+	 		 
+	 		KFCCounter k1 = new KFCCounter("Zinger Veg Burger","Table No. 11",350.00,true); 
+	 		KFCCounter k2 = new KFCCounter("Zinger Double Cheeze Burger","Table No. 12",600.00,true); 
+	 		KFCCounter k3 = new KFCCounter("Veggie Meal","Table No. 10",700.00,true); 
+	 
+	 
+	 		System.out.println("order count is "+KFCCounter.OrderCount); 
+	 
+	 		k1.eat(); 
+	 		k2.eat(); 
+	 		k3.eat(); 
+	 		 
+	 		 
+	 		k1.kiteFight(k2); 
+	 		 
+	 		System.out.println("order count is "+KFCCounter.OrderCount); 
+	 		 
+	 		k1.eat(); 
+	 		k2.eat(); 
+	 		k3.eat(); 
+	 		 
+	 		 
+	 	} 
+	 } 

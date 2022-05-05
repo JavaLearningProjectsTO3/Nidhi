@@ -1,0 +1,303 @@
+
+public class AbstractTest {
+	
+	public static void main(String[] args)
+	{
+
+	//StringBasedMusicalInstrument i = new MusicalInstrument(); 
+		CTScan g = new CTScan(); 
+		//g.play(); 
+		//g.tuneStrings(); 
+		g.utilize();
+		//g.pluck(); 
+		//g.eGuitar();
+		//g.blow();
+		//g.bowing();
+		//g.ting();
+		g.diagnose();
+		//g.sterilize();
+		
+
+	}
+}
+
+abstract class Instrument{
+	abstract void utilize();
+}
+
+abstract class MusicalInstruments extends Instrument{
+	abstract void play();
+}
+
+abstract class StringBasedMusicalInstrument extends MusicalInstruments{
+	abstract void tuneStrings();
+}
+
+
+class Guitar extends StringBasedMusicalInstrument
+{
+
+	@Override
+	void tuneStrings() 
+	{
+		System.out.println("Guitarist is fine-tuning the Guitar !!");
+	}
+
+	@Override
+	void play() 
+	{
+		System.out.println("Guitarist is playing the Guitar !!");
+	}
+
+	@Override
+	void utilize() 
+	{
+		System.out.println("Guitarist is utilizing all functionality of Guitar !!");
+	}
+	
+	void pluck()
+	{
+		System.out.println("Guitarist is now plucking the Guitar !!");
+		System.out.println("&& -- && -- && -- && -- && -- &&");
+	}
+}
+
+class ElectronicGuitar extends Guitar
+{
+	
+	void eGuitar()
+	{
+	super.play();
+	System.out.println("Guitarist is electronically fine-tuning the Electronic Guitar !!");
+	}
+}
+
+class Voilin extends StringBasedMusicalInstrument
+{
+
+	@Override
+	void tuneStrings() {}
+
+	@Override
+	void play() {}
+
+	@Override
+	void utilize() {}
+	
+	void bowing()
+	{
+		System.out.println("Voilenist is bowing the Voilin !!");
+	}
+	
+}
+class Cello extends Voilin {}
+
+class Sitar extends StringBasedMusicalInstrument
+{
+
+	@Override
+	void tuneStrings() {}
+
+	@Override
+	void play() {}
+
+	@Override
+	void utilize() {}
+	
+	void ting()
+	{
+		System.out.println("Sitarist is playing the Sitar !!");
+	}
+	
+}
+
+
+abstract class AirBasedMusicalInstrument extends MusicalInstruments
+{
+	abstract void blow();
+}
+
+class Flute extends AirBasedMusicalInstrument
+{
+
+	@Override
+	void blow() {
+		System.out.println("Saxophone is having beautiful sound !!");
+		
+	}
+
+	@Override
+	void play() {
+		System.out.println("Musician is blowing the Saxophone !!");
+		
+	}
+
+	@Override
+	void utilize() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+}
+
+class Saxophone extends AirBasedMusicalInstrument
+{
+
+	@Override
+	void blow() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	void play() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	void utilize() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+}
+
+abstract class MedicalInstrument extends Instrument
+{
+	abstract void diagnose();
+}
+
+abstract class SurgicalMedicalInstrument extends MedicalInstrument
+{
+	abstract void sterilize();
+}
+
+class Stethoscope extends MedicalInstrument
+{
+
+	@Override
+	void diagnose() {
+		System.out.println("Surgeon is diagnosing using Stethoscope !!");
+		System.out.println("$$ -- $$ -- $$ -- $$ -- $$ -- $$");
+		
+	}
+
+	@Override
+	void utilize() {
+		System.out.println("Surgeon is utilizing Stethoscope during diagnosis!!");
+		System.out.println("$$ -- $$ -- $$ -- $$ -- $$ -- $$");
+		
+	}
+	
+}
+class Needle extends SurgicalMedicalInstrument
+{
+
+	@Override
+	void sterilize() {
+		System.out.println("Surgeon is using Needle !!");
+		System.out.println("$$ -- $$ -- $$ -- $$ -- $$ -- $$");
+		
+	}
+
+	@Override
+	void diagnose() {
+		System.out.println("Surgeon is diagnosing !!");
+		System.out.println("$$ -- $$ -- $$ -- $$ -- $$ -- $$");	
+	}
+
+	@Override
+	void utilize() {
+		System.out.println("Surgeon is utilizing latest equipments & Needle !!");
+		System.out.println("$$ -- $$ -- $$ -- $$ -- $$ -- $$");
+		
+	}
+	
+}
+
+class Cutter extends SurgicalMedicalInstrument
+{
+
+	@Override
+	void sterilize() {
+		System.out.println("Surgeon is using cutter !!");
+		System.out.println("$$ -- $$ -- $$ -- $$ -- $$ -- $$");
+		
+	}
+
+	@Override
+	void diagnose() {
+		System.out.println("Surgeon is diagnosing !!");
+		System.out.println("$$ -- $$ -- $$ -- $$ -- $$ -- $$");
+		
+	}
+
+	@Override
+	void utilize() {
+		System.out.println("Surgeon is utilizing latest equipments of cutter!!");
+		System.out.println("$$ -- $$ -- $$ -- $$ -- $$ -- $$");
+		
+	}
+	
+}
+
+abstract class PathologyMedicalInstrument extends MedicalInstrument
+{
+	abstract void takeReadings();
+	abstract void scanning();
+}
+
+class GlucoMeter extends MedicalInstrument
+{
+
+	@Override
+	void diagnose() {
+		System.out.println("MRI is in progress !!");
+		System.out.println("$$ -- $$ -- $$ -- $$ -- $$ -- $$");
+		
+	}
+
+	@Override
+	void utilize() {
+		System.out.println("MRI is being utilized !!");
+		System.out.println("$$ -- $$ -- $$ -- $$ -- $$ -- $$");
+	}
+	
+}
+
+class MRI extends MedicalInstrument
+{
+
+	@Override
+	void diagnose() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	void utilize() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+}
+
+class CTScan extends MedicalInstrument
+{
+
+	@Override
+	void diagnose() {
+		System.out.println("CTScan is in progress !!");
+		System.out.println("$$ -- $$ -- $$ -- $$ -- $$ -- $$");
+		
+	}
+
+	@Override
+	void utilize() {
+		System.out.println("CTScan is being utilized !!");
+		System.out.println("$$ -- $$ -- $$ -- $$ -- $$ -- $$");
+		
+	}
+	
+}

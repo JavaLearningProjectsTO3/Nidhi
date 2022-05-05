@@ -1,0 +1,103 @@
+import java.time.LocalDate; 
+
+
+ public class TestOverride { 
+ 
+ 	public static void main(String[] args) { 
+ 		// TODO Auto-generated method stub 
+ 		 
+ 	
+ 		Catfamily ref = new Catfamily(); 
+		 
+		 
+ 		 
+ 	ref.meowing("Meow!!"); // ref.Catfamily.meowing("Meow!!"); 
+ 	 
+ 		ref=new DomesticCat(); 
+ 		 
+		 
+ 		 
+	ref.meowing("Roar!!");//   ref.Catfamily.meowing("Roar!!"); 
+		ref=new Lion(); 
+ 	 
+		if(ref instanceof Lion) { 
+			System.out.println("Yes it is pointing to Lion "); 
+		} 
+ 		else { 
+			System.out.println("No, it is NOT pointing to Lion "); 
+		} 
+ 		 
+		System.out.println("----------------------"); 
+	 
+		 
+		if(ref instanceof DomesticCat) { 
+ 			System.out.println("Yes it is pointing to DomesticCat "); 
+		} 
+		else { 
+ 			System.out.println("No, it is NOT pointing to DomesticCat "); 
+		} 
+		 
+		System.out.println("----------------------"); 
+		 
+ 		if(ref instanceof Catfamily) { 
+ 			System.out.println("Yes it is pointing to Catfamily "); 
+		} 
+		else { 
+			System.out.println("No it is not pointing to Catfamily "); 
+		} 
+ 	ref.meowing(500); //	ref.Catfamily.meowing(800); 
+ 		 
+ 		//RTTI - runtime type identification table - vtable 
+		//Reflection API 
+ 	//Class Method Constructor 
+	 
+ 		if(ref instanceof Catfamily) { 
+ 			 
+ 		} 
+ 		 
+ 	} 
+ 
+ 
+ } 
+ abstract class Roaring // partial class -  
+ { 
+ 	abstract void meowing(string amt); //declared - not defined  
+ } 
+ class Recurring extends Roaring 
+ { 
+ 	void meowing(String x) { 
+ 		 
+ 	} 
+ } 
+ class Catfamily extends Roaring { //isA 
+ 	String balance=5000; 
+ 	void meowing(String y) { //1. inherited 
+ 		System.out.println("Cat:meowing()"); 
+ 		balance=balance-y; 
+ 	} 
+ } 
+ class DomesticCat extends Catfamily { 
+ 	 
+ 	void calculateSimpleInterest() {//2. exclusive 
+ 		 
+	} 
+ 	void meowing(String a) {//3. overriding 
+ 		System.out.println("DomesticCat:meowing()"); 
+ 		if(balance < a) { 
+ 			throw new RuntimeException("funds insufficient..."); 
+ 		} 
+ 		balance=balance-a; 
+ 	} 
+ } 
+ class Lion extends DomesticCat { 
+ 	int tenureYear=2022;  //2025 
+ 	void meowing(String a) { 
+ 		int currentYear = LocalDate.now().getYear(); 
+ 		if(tenureYear != currentYear) { 
+ 			throw new RuntimeException("Cat not matured...cannot withdrwa...."); 
+ 		} 
+ 		System.out.println("Lion:meowing()"); 
+ 		balance=balance-a; 
+ 	} 
+ 	void Roaring(String a) { } 
+ } 

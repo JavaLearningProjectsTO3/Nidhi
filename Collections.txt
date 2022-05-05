@@ -1,0 +1,31 @@
+interface Singing{
+
+Song sing(Lyrics lyrics,Music music) throws ThroatException;
+}
+
+class ThroatException extends Exception
+class Music{}
+class Lyrics{}
+class Song{} 
+
+Interface with no methods is called a marker interface
+
+abstract class Person{}
+
+class Singer extends Person implements Singing{}
+
+4 types of containers 
+						Iterable interface
+
+							|
+
+						Collection interface
+		--------------------------------------------------------
+		|							|	
+		List - linear,can contain duplicates			Set - non-linear, unique
+		|							|
+------------------------				-------------------------
+|			|				|			|
+ArrayList		LinkedList			TreeSet			HashSet
+												
+

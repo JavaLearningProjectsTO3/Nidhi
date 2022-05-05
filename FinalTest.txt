@@ -1,0 +1,65 @@
+
+public class FinalTest { 
+3 	public static void main(String[] args) { 
+4 		 
+5 		final float PI=3.14f; 
+6 		System.out.println("PI "+PI); 
+7 		//PI=3.21f; 
+8 		System.out.println("PI "+PI); 
+9 	} 
+10 } 
+11 /* 
+12  *1		Rook	Knight    Bishop	King 	Queen	Bishop	Knight  Rook 
+13  *2		Pawn	Pawn	  Pawn	    Pawn 	Pawn 	Pawn 	Pawn  	Pawn	 
+14  *3  
+15  *4 		 
+16  *5 
+17  *6 
+18  *7		Pawn	Pawn	  Pawn	    Pawn 	Pawn 	Pawn 	Pawn  	Pawn 
+19  *8		Rook	Knight    Bishop	King 	Queen	Bishop	Knight  Rook 
+20  *  
+21  *  
+22  *  
+23  */ 
+ final class Chess //Abhinav  
+ { 
+ 	void moveBishop() { //math logic 
+ 		System.out.println("bishop is moving in cross bi-directional..."); 
+ 	} 
+ 	void moveKnight() { //math logic 
+ 		System.out.println("Knight is moving in L Shape..any direction/jump over..."); 
+ 	} 
+ } 
+ class GraphicalChess extends Chess //Sindhuri 
+ { 
+ 	void moveMyBishop() { 
+ 		super.moveBishop(); 
+ 		System.out.println("My own Math logic to move bishop in "); 
+ 	} 
+ 	void moveKnight() { //math logic 
+ 		System.out.println("Knight is moving in L Shape..any direction/jump over..."); 
+ 	} 
+ } 
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+ 
+
+
+
+
+
+ 

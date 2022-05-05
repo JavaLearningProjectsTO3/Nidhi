@@ -1,0 +1,118 @@
+import java.time.LocalDate;
+
+public class CompanyTest {
+
+	public static void main(String[] args) {
+		
+		Company c1 = new Company("Company 1",30,"CEO 1");
+		c1.produce();
+		
+		MobileCompany m1 = new MobileCompany("Mobile Company 1 ",100,"CEO 2","Note 8",LocalDate.of(2022, 03, 05));
+		m1.produce();
+		m1.rd();
+		
+		FoodCompany f = new FoodCompany("Food Item 1", 100, "CEO 3", "Cakes", LocalDate.of(2022, 05, 03), LocalDate.of(2022, 05, 10));
+		f.produce();
+	}
+
+}
+
+class Company {
+
+	private String name;
+	private int employees;
+	private String ceo;
+
+	public Company(String name, int employees, String ceo) {
+		super();
+		this.name = name;
+		this.employees = employees;
+		this.ceo = ceo;
+	}
+
+	@Override
+	public String toString() {
+		return "Company [name=" + name + ", employees=" + employees + ", ceo=" + ceo + "]";
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getEmployees() {
+		return employees;
+	}
+
+	public void setEmployees(int employees) {
+		this.employees = employees;
+	}
+
+	public String getCeo() {
+		return ceo;
+	}
+
+	public void setCeo(String ceo) {
+		this.ceo = ceo;
+	}
+
+	void produce() {
+		System.out.println("Company is producing end products");
+	}
+
+}
+
+class MobileCompany extends Company{
+	
+	String model;
+	LocalDate releaseYear;
+	public MobileCompany(String name, int employees, String ceo, String model, LocalDate releaseYear) {
+		super(name, employees, ceo);
+		this.model = model;
+		this.releaseYear = i;
+	}
+	@Override
+	public String toString() {
+		return "mobileCompany [model=" + model + ", releaseYear=" + releaseYear + ", toString()=" + super.toString()
+				+ "]";
+	}
+	
+	@Override
+	public void produce() {
+		System.out.println("Company is producing mobile phones");
+	}
+	
+	public void rd() {
+		System.out.println("Company is into research and development");
+	}
+	
+}
+
+class FoodCompany extends Company{
+	
+	String foodItem;
+	LocalDate manufactuirngDate,expDate;
+	public FoodCompany(String name, int employees, String ceo, String foodItem, LocalDate manufactuirngDate,
+			LocalDate expDate) {
+		super(name, employees, ceo);
+		this.foodItem = foodItem;
+		this.manufactuirngDate = manufactuirngDate;
+		this.expDate = expDate;
+	}
+	@Override
+	public String toString() {
+		return "foodCompany [foodItem=" + foodItem + ", manufactuirngDate=" + manufactuirngDate + ", expDate=" + expDate
+				+ ", toString()=" + super.toString() + "]";
+	}
+	
+	public void produce() {
+		
+		System.out.println("Company is producing food items");
+	}
+	
+	
+	
+}
