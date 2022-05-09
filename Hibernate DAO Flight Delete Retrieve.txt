@@ -1,0 +1,86 @@
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+
+public class CrudTest {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.out.println("Trying to read persistence.xml file...");
+		
+		//3
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("MyJPA");
+		System.out.println("EntityManagerFactory created....");
+		
+		EntityManager em = emf.createEntityManager();
+		System.out.println("EntityManager created....");
+		
+			
+		EntityTransaction et = em.getTransaction();
+		System.out.println("EntityTransaction created....");
+		
+		System.out.println("Trying to create record.....");
+		Flight theFlight= new Flight();
+		theFlight.setFlightNumber(104);
+		theFlight.setFlightName("Vistara");
+		theFlight.setFlightSource("Goa");
+		theFlight.setFlightDestination("Mumbai");
+		theFlight.setFlightTicketCost(5500);
+		theFlight.setNumberOfPassengers(300);
+		theFlight.setFlightDepartureFromSource(LocalDateTime.now());
+		theFlight.setFlightArrivalAtDestination(LocalDateTime.now());
+		
+	/* TO CREATE NEW RECORD
+	 * et.begin();
+			em.persist(theFlight);
+		et.commit();
+		System.out.println("=================");*/
+	
+		
+	/*	TO UPDATE/AMEND EXISTING RECORD
+	 * et.begin();
+			Flight f = em.find(Flight.class, 101);
+			f.setFlightDestination("USA");
+			em.merge(f);
+		et.commit();*/
+		
+/*	TO RETRIEVE SINGLE RECORD
+	   em.getTransaction().begin();
+		 Long key = Long.valueOf(2);//Retrieving
+  		 Flight f = em.find(Flight.class, 101); //SINGLE RECORD
+  		 System.out.println(f.getFlightName());
+  		 System.out.println(f.getFlightNumber());
+			et.commit();*/
+			
+	/* TO DELETE ANY RECORD	
+		 em.getTransaction().begin();
+		 Long key = Long.valueOf(2); //Retrieving
+		 Flight p = em.find(Flight.class, 103);
+		 em.remove(p);
+		 em.getTransaction().commit();*/
+		
+	/* TO RETRIEVE ALL RECORDS */
+		
+		Query qry = em.createNativeQuery("Select * from Flight_Info ", Flight.class);
+		List<Flight> flightAll = (List<Flight>) qry.getResultList();
+		System.out.println("Created the record list......"+flightAll);
+		
+		for(Flight list:flightAll)
+		{
+			System.out.println("Flight number is :: "+list.getFlightNumber());
+		}
+	 	
+		
+		
+		System.out.println("Created the record.....");
+		
+	}
+
+}
