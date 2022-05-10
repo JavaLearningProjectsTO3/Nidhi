@@ -1,0 +1,84 @@
+import java.time.LocalDateTime;
+import java.util.List;
+
+import javax.persistence.EntityTransaction;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+public class TestDAO {
+	
+	FlightDAO flightDao = new FlightDAOImpl();
+	
+	@Test
+	public void testSelectDAO() {
+		
+		Flight f = flightDao.findFlightById(4);
+		Assertions.assertTrue(f!=null);
+		System.out.println("Flight number : "+f.getFlightNumber());
+		System.out.println("Flight name   : "+f.getFlightName());
+		System.out.println("Flight source : "+f.getFlightSource());
+		System.out.println("Flight dest   : "+f.getFlightDestination());
+		System.out.println("Flight arrtime: "+f.getFlightArrivalAtDestination());
+		System.out.println("Flight deptime: "+f.getFlightDepartureFromSource());
+		System.out.println("Flight nop    : "+f.getNumberOfPassengers());
+		System.out.println("Flight cost   : "+f.getFlightTicketCost());
+	
+	}
+	
+	@Test
+	public void testUpdateDAO() {
+		
+				Flight f = flightDao.findFlightById(4);
+				f.setFlightName("Lufthansa");
+				f.setFlightDepartureFromSource(LocalDateTime.of(2022, 05,13,05,55));
+				flightDao.updateFlight(f);
+				
+	}
+	
+	@Test
+	public void testDeleteDAO() {
+		
+				flightDao.deleteFlight(1);
+				
+	}
+	
+		
+	@Test
+	public void testSelectAllDAO() {
+			List<Flight> fAll = flightDao.findAllFlights();
+			Assertions.assertTrue(fAll!=null);
+			
+			for (Flight fList : fAll)
+			{
+				System.out.println("Flight number : "+fList.getFlightNumber());
+				System.out.println("Flight name   : "+fList.getFlightName());
+				System.out.println("Flight source : "+fList.getFlightSource());
+				System.out.println("Flight dest   : "+fList.getFlightDestination());
+				System.out.println("Flight arrtime: "+fList.getFlightArrivalAtDestination());
+				System.out.println("Flight deptime: "+fList.getFlightDepartureFromSource());
+				System.out.println("Flight nop    : "+fList.getNumberOfPassengers());
+				System.out.println("Flight cost   : "+fList.getFlightTicketCost());
+				System.out.println("###########################################");
+
+			}
+			
+	}
+	
+	@Test
+	public void testSaveNewRecordDAO() {
+		
+				Flight fNew = new Flight();
+				System.out.println("Flight named object is created for new flight record........");
+				fNew.setFlightName("Qantas");
+				fNew.setFlightSource("Mumbai");
+				fNew.setFlightDestination("Australia");
+				fNew.setFlightDepartureFromSource(LocalDateTime.of(2022,05,13,23,10));
+				fNew.setFlightArrivalAtDestination(LocalDateTime.of(2022,05,14,14,00));
+				fNew.setNumberOfPassengers(250);
+				fNew.setFlightTicketCost(48500);
+				
+	}
+	
+	
+}
